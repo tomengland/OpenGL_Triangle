@@ -27,4 +27,10 @@ CTestTestfile.cmake
 # Executables
 *.exe
 *.out
-*.app
+*.app# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
