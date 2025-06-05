@@ -1,8 +1,8 @@
 #version 410 core
 out vec4 FragColor;
-
+uniform vec4 vertexColor;// Uniform variable to receive color from vertex shader
 void main()
 {
     // Set the fragment color to yellow
-    FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);
+    FragColor = vertexColor;
 }

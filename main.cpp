@@ -27,15 +27,10 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     float vertices[] = {
-        // First triangle (left side)
-        -0.8f, -0.5f, 0.0f, // bottom left
-        -0.2f, -0.5f, 0.0f, // bottom right
-        -0.5f, 0.5f, 0.0f,  // top
-
         // Second triangle (right side)
-        0.2f, -0.5f, 0.0f, // bottom left
-        0.8f, -0.5f, 0.0f, // bottom right
-        0.5f, 0.5f, 0.0f   // top
+        -0.5f, -0.5f, 0.0f, // bottom left
+        0.5f, -0.5f, 0.0f,  // bottom right
+        0.0f, 0.5f, 0.0f    // top
     };
 
 
@@ -101,11 +96,10 @@ int main()
     glDeleteShader(fragmentShader);
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
-    unsigned int VBO, VAO, VBO2, VAO2;
+    unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-    glGenVertexArrays(1, &VAO2);
-    glGenBuffers(1, &VBO2);
+
     // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
     glBindVertexArray(VAO);
 
@@ -123,16 +117,6 @@ int main()
     // VAOs requires a call to glBindVertexArray, so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
     glBindVertexArray(0);
 
-    // second vao/vbo
-    glBindVertexArray(VAO2);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO2);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
-                          static_cast<void *>(nullptr));
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
 
     while (!glfwWindowShouldClose(window))
     {
@@ -142,13 +126,18 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // draw our triangle
+        // activate the shader program
         glUseProgram(shaderProgram);
+
+        // draw our triangle
+        auto timeValue          = static_cast<float>(glfwGetTime());
+        float greenValue        = (sin(timeValue) / 2.0f) + 0.5f;
+        int vertexColorLocation = glGetUniformLocation(
+            shaderProgram, "vertexColor");
+        glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+        // render the triangle
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
-        glBindVertexArray(VAO2);
-        glDrawArrays(GL_TRIANGLES, 3, 3);
-
 
         // check events and swap buffers.
         glfwSwapBuffers(window);
@@ -157,9 +146,7 @@ int main()
 
     // clean up
     glDeleteVertexArrays(1, &VAO);
-    glDeleteVertexArrays(1, &VAO2);
     glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &VBO2);
     glDeleteProgram(shaderProgram);
     glfwTerminate();
     return 0;

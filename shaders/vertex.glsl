@@ -5,4 +5,5 @@ void main()
 {
     // Pass the vertex position to the fragment shader
     gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+    // shade of red
 }
