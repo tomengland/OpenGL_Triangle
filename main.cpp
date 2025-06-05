@@ -27,9 +27,15 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f, // bottom left
-        0.5f, -0.5f, 0.0f,  // bottom right
-        0.0f, 0.5f, 0.0f    // top
+        // First triangle (left side)
+        -0.8f, -0.5f, 0.0f, // bottom left
+        -0.2f, -0.5f, 0.0f, // bottom right
+        -0.5f, 0.5f, 0.0f,  // top
+
+        // Second triangle (right side)
+        0.2f, -0.5f, 0.0f, // bottom left
+        0.8f, -0.5f, 0.0f, // bottom right
+        0.5f, 0.5f, 0.0f   // top
     };
 
 
@@ -128,6 +134,7 @@ int main()
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_TRIANGLES, 3, 3);
 
 
         // check events and swap buffers.
