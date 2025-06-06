@@ -24,7 +24,6 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     float vertices[] = {
         // Second triangle (right side)
@@ -110,7 +109,7 @@ int main()
                           static_cast<void *>(nullptr));
     glEnableVertexAttribArray(0);
 
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so after we can safely unbind
+    // note that this is allowed. The call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so after we can safely unbind
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     // You can unbind the VAO after so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
