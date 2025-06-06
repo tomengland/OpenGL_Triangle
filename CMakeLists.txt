@@ -10,5 +10,6 @@ find_package(OpenGL REQUIRED)
 add_library(glad glad/src/glad.c)
 target_include_directories(glad PUBLIC glad/include)
 
-add_executable(OpenGL_Triangle main.cpp)
+add_executable(OpenGL_Triangle src/main.cpp
+        src/Shader.h)
 target_link_libraries(OpenGL_Triangle glad glfw OpenGL::GL)
