@@ -9,7 +9,8 @@ find_package(OpenGL REQUIRED)
 add_library(glad glad/src/glad.c)
 target_include_directories(glad PUBLIC glad/include)
 
-add_executable(OpenGL_Triangle main.cpp)
+add_executable(OpenGL_Triangle src/main.cpp
+        src/shader.h)
 
 if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /W4)
