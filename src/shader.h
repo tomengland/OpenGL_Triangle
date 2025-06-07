@@ -1,5 +1,5 @@
 //
-// Created by tengland on 6/5/2025.
+// Created by Tom England on 6/5/2025.
 //
 #ifndef SHADER_H
 #define SHADER_H
@@ -41,9 +41,10 @@ public:
             vertexCode = vShaderStream.str();
             fragmentCode = fShaderStream.str();
         }
-        catch (std::ifstream::failure e)
+        catch (std::ifstream::failure &e)
         {
-            std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+            std::cout << e.what() << std::endl;
+            std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
         }
 
         const char* vShaderCode = vertexCode.c_str();
@@ -95,7 +96,6 @@ public:
         glDeleteShader(fragment);
 
     }
-
 
     void use() const
     {
