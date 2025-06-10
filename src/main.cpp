@@ -1,5 +1,4 @@
 #include <fstream>
-#include <sstream>
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -14,7 +13,7 @@ void processInput(GLFWwindow *window);
 
 int main()
 {
-    // glfw setup
+    // glfw setup is done.
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
